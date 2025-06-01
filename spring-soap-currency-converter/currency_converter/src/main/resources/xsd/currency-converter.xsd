@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:tns="http://glebtanaka.io/currency-converter"
+           targetNamespace="http://glebtanaka.io/currency-converter" 
+           elementFormDefault="qualified">
+
+    <!-- Define currency type as a simple string with restriction -->
+    <xs:simpleType name="CurrencyType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]{3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Define the request element -->
+    <xs:element name="CurrencyConversionRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="sourceCurrency" type="tns:CurrencyType"/>
+                <xs:element name="targetCurrency" type="tns:CurrencyType"/>
+                <xs:element name="amount" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Define the response element -->
+    <xs:element name="CurrencyConversionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="sourceCurrency" type="tns:CurrencyType"/>
+                <xs:element name="targetCurrency" type="tns:CurrencyType"/>
+                <xs:element name="sourceAmount" type="xs:decimal"/>
+                <xs:element name="targetAmount" type="xs:decimal"/>
+                <xs:element name="exchangeRate" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Define the get currencies request element -->
+    <xs:element name="GetCurrenciesRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <!-- Define the get currencies response element -->
+    <xs:element name="GetCurrenciesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="currencies" type="tns:CurrencyType" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
